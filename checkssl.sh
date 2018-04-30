@@ -32,6 +32,8 @@ Options:
 
   --dates      Print start and end dates of when the certificate is valid.
 
+  --zabbix     Print end dates of when the certificate is valid. YYYY-mm-dd HH:MM:ss
+  
   --file       Use a local certificate file for input.
 
   --help       Print this help message.
