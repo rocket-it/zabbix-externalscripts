@@ -32,7 +32,7 @@ Options:
 
   --dates      Print start and end dates of when the certificate is valid.
 
-  --zabbix     Print end dates of when the certificate is valid. YYYY-mm-dd HH:MM:ss
+  --days       Print days until the certificate expires
   
   --file       Use a local certificate file for input.
 
@@ -148,16 +148,16 @@ while [ "$1" ]; do
               echo valid till: $(date -d "$end" '+%F %T %Z')
               }
             ;;
-        --zabbix)
+         --days)
             opt="-dates"
             FormatOutput() {
               dates=$(cat -)
-              start=$(grep Before <<<"$dates" | cut -d= -f2-)
               end=$(grep After <<<"$dates" | cut -d= -f2-)
-              #echo $(date -d "$end" '+%F %T %Z')
-              echo $(date -d "$end" '+%F %T')
-              }
-            ;;
+              end_ts=$(date -d "$end" '+%s')
+              now_ts=$(date -d "now" '+%s')
+              echo "scale=0; ( $end_ts - $now_ts )/(60*60*24)" | bc
+              }            
+	    ;;
         --end)
             opt="-enddate"
             FormatOutput() {
