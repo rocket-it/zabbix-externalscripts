@@ -203,7 +203,7 @@ CheckLocalCert()
 CheckRemoteCert()
 {
   echo |
-  openssl s_client $servername -connect $host:$port 2>/dev/null |
+  openssl s_client $servername -servername $host -connect $host:$port 2>/dev/null |
   openssl x509 -noout $opt
 }
 
